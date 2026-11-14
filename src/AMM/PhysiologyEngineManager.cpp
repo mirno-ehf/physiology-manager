@@ -241,7 +241,11 @@ namespace AMM {
 		    LOG_ERROR << "Missing or empty PhysiologyModification type.";
 		    return;
 		  }
+		  // Normalize so glossary names ("Substance Bolus"), "substance_bolus" and "SubstanceBolus" all match
 		  boost::algorithm::to_lower(pmType);
+		  boost::algorithm::erase_all(pmType, " ");
+		  boost::algorithm::erase_all(pmType, "_");
+		  boost::algorithm::erase_all(pmType, "-");
 		  LOG_INFO << "Physiology Modification: " << pmType;
 		  
 		  std::string pState = getElementText(pRoot, "State", "state");
